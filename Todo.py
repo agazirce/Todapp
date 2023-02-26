@@ -11,7 +11,7 @@ class Todo:
     title: str
     status: Status
 
-    def __init__(self, todo_id: int, title: str):
+    def __init__(self, todo_id: int, title: str, status: str):
         self.id = todo_id
         self.title = title
-        self.status = Status.CURRENT
+        self.status = status

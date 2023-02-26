@@ -13,13 +13,13 @@ def home():
     todos: list[Todo] = []
     co = sqlite3.connect('todo.db')
     cursor = co.cursor()
-    cursor.execute("SELECT * FROM todos ORDER BY status, id")
+    cursor.execute("SELECT * FROM todos ORDER BY status, id ;")
     rows = cursor.fetchall()
     cursor.close()
     co.close()
 
     for row in rows:
-        todos.append(Todo(row[0], row[1], row[2]))
+        todos.append(Todo(row[0], row[1], row[2], row[3]))
     return render_template("list.html", todos=todos)
 
 

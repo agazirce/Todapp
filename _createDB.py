@@ -6,11 +6,11 @@ cursor = co.cursor()
 # CREATE DB
 cursor.execute(
     "CREATE TABLE IF NOT EXISTS todos("
-    "   id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, status TEXT DEFAULT 'current') ;")
+    "   id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, description TEXT, status TEXT DEFAULT 'current') ;")
 
 # INSERT EXEMPLE
-t = ("Todo 1",)
-cursor.execute("INSERT INTO todos (title) VALUES (?) ;", t)
+t = ("Todo 1", 'This is a beautifull tasks')
+cursor.execute("INSERT INTO todos (title, description) VALUES (?, ?) ;", t)
 t = ("Todo 2",)
 cursor.execute("INSERT INTO todos (title) VALUES (?) ;", t)
 t = ("Todo 3", "done")

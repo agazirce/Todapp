@@ -13,7 +13,7 @@
             <input type="checkbox" id={{todo.id}} name="todo" checked disabled>
             <label for={{todo.id}}>[{{todo.status}}] <strike>{{todo.title}}</strike></label>
             {% else %}
-            <input type="checkbox" id={{todo.id}} name="todo">
+            <a href="/change_into_done/{{todo.id}}"><input type="checkbox" id={{todo.id}} name="todo"></a>
             <label for={{todo.id}}>[{{todo.status}}] {{todo.title}}</label>
             {% endif %}
         </li>

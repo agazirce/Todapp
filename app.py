@@ -1,6 +1,6 @@
 import sqlite3
 
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 
 from Todo import Todo
 
@@ -21,6 +21,19 @@ def home():
     for row in rows:
         todos.append(Todo(row[0], row[1], row[2]))
     return render_template("list.html", todos=todos)
+
+
+@app.route('/change_into_done/<int:todo_id>')
+def change_into_done(todo_id: int):
+    params = ("done", f"{todo_id}")
+    co = sqlite3.connect('todo.db')
+    cursor = co.cursor()
+    cursor.execute("UPDATE todos SET status=? WHERE id=? ;", params)
+    co.commit()
+    cursor.close()
+    co.close()
+
+    return redirect('/list')
 
 
 if __name__ == "__main__":

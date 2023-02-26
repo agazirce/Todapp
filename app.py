@@ -13,13 +13,13 @@ def home():
     todos: list[Todo] = []
     co = sqlite3.connect('todo.db')
     cursor = co.cursor()
-    cursor.execute("SELECT * FROM todos ORDER BY status, id")
+    cursor.execute("SELECT * FROM todos ORDER BY status, id ;")
     rows = cursor.fetchall()
     cursor.close()
     co.close()
 
     for row in rows:
-        todos.append(Todo(row[0], row[1], row[2]))
+        todos.append(Todo(row[0], row[1], row[2], row[3]))
     return render_template("list.html", todos=todos)
 
 
@@ -34,6 +34,23 @@ def change_into_done(todo_id: int):
     co.close()
 
     return redirect('/list')
+
+
+@app.route('/detail/<int:todo_id>')
+def detail(todo_id: int):
+    params = (f"{todo_id}",)
+    co = sqlite3.connect('todo.db')
+    cursor = co.cursor()
+    cursor.execute("SELECT * FROM todos WHERE id=? ;", params)
+    row = cursor.fetchone()
+    cursor.close()
+    co.close()
+
+    if not row:
+        return redirect('/')
+
+    todo: Todo = Todo(row[0], row[1], row[2], row[3])
+    return render_template("detail.html", todo=todo)
 
 
 if __name__ == "__main__":

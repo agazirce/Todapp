@@ -10,11 +10,11 @@
         {% for todo in todos %}
         <li>
             {% if todo.status == "done" %}
-            <input type="checkbox" id={{todo.id}} name="todo" checked disabled>
-            <label for={{todo.id}}>[{{todo.status}}] <strike>{{todo.title}}</strike></label>
+            <input type="checkbox" checked disabled>
+            <a href="/detail/{{todo.id}}"><label>[{{todo.status}}] <strike>{{todo.title}}</strike></label></a>
             {% else %}
-            <a href="/change_into_done/{{todo.id}}"><input type="checkbox" id={{todo.id}} name="todo"></a>
-            <label for={{todo.id}}>[{{todo.status}}] {{todo.title}}</label>
+            <a href="/change_into_done/{{todo.id}}"><input type="checkbox"></a>
+            <a href="/detail/{{todo.id}}"><label>[{{todo.status}}] {{todo.title}}</label></a>
             {% endif %}
         </li>
         {% endfor %}

@@ -36,5 +36,22 @@ def change_into_done(todo_id: int):
     return redirect('/list')
 
 
+@app.route('/detail/<int:todo_id>')
+def detail(todo_id: int):
+    params = (f"{todo_id}",)
+    co = sqlite3.connect('todo.db')
+    cursor = co.cursor()
+    cursor.execute("SELECT * FROM todos WHERE id=? ;", params)
+    row = cursor.fetchone()
+    cursor.close()
+    co.close()
+
+    if not row:
+        return redirect('/')
+
+    todo: Todo = Todo(row[0], row[1], row[2], row[3])
+    return render_template("detail.html", todo=todo)
+
+
 if __name__ == "__main__":
     app.run(host='localhost', port=5000, debug=True)

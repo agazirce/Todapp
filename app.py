@@ -1,6 +1,6 @@
 import sqlite3
 
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, request
 
 from Todo import Todo
 
@@ -13,7 +13,7 @@ def home():
     todos: list[Todo] = []
     co = sqlite3.connect('todo.db')
     cursor = co.cursor()
-    cursor.execute("SELECT * FROM todos ORDER BY status, id ;")
+    cursor.execute("SELECT * FROM todos ORDER BY status, id DESC ;")
     rows = cursor.fetchall()
     cursor.close()
     co.close()
@@ -51,6 +51,19 @@ def detail(todo_id: int):
 
     todo: Todo = Todo(row[0], row[1], row[2], row[3])
     return render_template("detail.html", todo=todo)
+
+
+@app.route('/add', methods=['POST'])
+def add_todo():
+    todo = request.form.get('todo')
+    description = request.form.get('description')
+    co = sqlite3.connect('todo.db')
+    cursor = co.cursor()
+    cursor.execute("INSERT INTO todos(title, description) VALUES(?, ?)", (todo, description))
+    co.commit()
+    cursor.close()
+    co.close()
+    return redirect('/')
 
 
 if __name__ == "__main__":

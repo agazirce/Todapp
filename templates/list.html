@@ -6,6 +6,12 @@
 </head>
 <body>
     <h1>Hello on Todapp</h1>
+    <form action="/add" method="POST">
+	    <input type="text" name="todo" placeholder="Todo" required>
+	    <input type="text" name="description" placeholder="Description">
+	    <button type="submit">Add Todo</button>
+    </form>
+    <h3>My Todos</h3>
     <ul>
         {% for todo in todos %}
         <li>

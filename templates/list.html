@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todapp</title>
+</head>
+<body>
+    <h1>Hello on Todapp</h1>
+    <ul>
+        {% for todo in todos %}
+        <li>
+            {% if todo.status == "done" %}
+            <input type="checkbox" id={{todo.id}} name="todo" checked disabled>
+            <label for={{todo.id}}>[{{todo.status}}] <strike>{{todo.title}}</strike></label>
+            {% else %}
+            <a href="/change_into_done/{{todo.id}}"><input type="checkbox" id={{todo.id}} name="todo"></a>
+            <label for={{todo.id}}>[{{todo.status}}] {{todo.title}}</label>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,3 +1,16 @@
+# HOW TO USE
+- Requirement: a docker engine and access to the internet
+- start a terminal (or PowerShell on Windows) and go into a workspace
+- clone project: *git clone https://github.com/agazirce/Todapp.git*
+- Build image (don't forget " ."): *docker build --tag python-flask .*
+- Start it (replace /workspace with yours): *docker run -it -v /workspace:/monApp  -p 5000:5000 python-flask*
+- Go on: http://localhost:5000
+- Enjoy the app!
+
+## if you want to start with an empty Database
+- delete todo.db
+- create a new one : *python _createDB.py*
+
 # Context
 Our fantastic product owner has a wonderful, amazing and revolutionary idea... he wants to build a new Todo application. 
 He has a good idea of the application behavior and comes with a backlog containing the following user stories :
